@@ -12,7 +12,7 @@ const FloatSelect = (props) => {
 
   const labelClass = isOccupied ? "label as-label" : "label as-placeholder";
 
-  const requiredMark = required ? <span className="text-danger">*</span> : null;
+  // const requiredMark = required ? <span className="text-danger">*</span> : null;
 
   const rules = required
     ? [{ required: true, message: `${label} is required` }]

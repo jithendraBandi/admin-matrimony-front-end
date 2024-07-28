@@ -16,7 +16,7 @@ const Profile = () => {
     const [searchInput, setSearchInput] = useState("");
     const [profileDetails, setProfileDetails] = useState(null);
     const [profileDetailsModal, setProfileDetailsModal] = useState(false);
-    const [searchParameter, setSearchParameter] = useState("firstName");
+    const [searchParameter, setSearchParameter] = useState("lastName");
     useEffect(() => {
         getProfileData();
     }, []);
@@ -39,6 +39,7 @@ const Profile = () => {
             title: 'Code No.',
             dataIndex: 'codeNo',
             key: 'codeNo',
+            fixed: "left",
             sorter: (a, b) => a?.codeNo - b?.codeNo,
             render: (codeNo) => (
                 <Popover content={() => getImagePreview(codeNo)}>
@@ -50,6 +51,7 @@ const Profile = () => {
             title: 'Surname',
             dataIndex: 'lastName',
             key: 'lastName',
+            fixed: "left",
             sorter: (a, b) => a.lastName.localeCompare(b.lastName),
             render: (lastName, record) => <p style={{color:"#1677FF", cursor:"pointer"}} onClick={() => {
                 setProfileDetailsModal(true);
@@ -60,6 +62,7 @@ const Profile = () => {
             title: 'Name',
             dataIndex: 'firstName',
             key: 'firstName',
+            fixed: "left",
             sorter: (a, b) => a.firstName.localeCompare(b.firstName),
         },
         {
@@ -172,7 +175,7 @@ const Profile = () => {
         // setFilteredData(filteredData);
     }
     const filteredData = () => {
-        return profileData.filter(profile => profile[searchParameter].toLowerCase().includes(searchInput.toLowerCase()));
+        return profileData.filter(profile => profile[searchParameter]?.toLowerCase().includes(searchInput?.toLowerCase()));
     }
     return (
             <><div>

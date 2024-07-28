@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Input, InputNumber } from "antd";
+import { Input } from "antd";
 import "./index.css";
 import TextArea from "antd/es/input/TextArea";
 const FloatInput = (props) => {
