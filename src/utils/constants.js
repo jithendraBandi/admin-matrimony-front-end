@@ -1,0 +1,6 @@
+export const BASE_URL = "http://localhost:8080/api";
+
+export const GET_ALL_PROFILES = BASE_URL + "/profiles/get";
+export const CREATE_PROFILE = BASE_URL + "/profiles/create";
+export const GET_PROFILE_IMAGE = BASE_URL + "/profiles/get-image/";
+export const SAVE_PROFILE_IMAGE = BASE_URL + "/profiles/save-image";
