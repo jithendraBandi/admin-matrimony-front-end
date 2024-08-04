@@ -8,9 +8,11 @@
     "@testing-library/user-event": "^13.5.0",
     "antd": "^5.19.3",
     "axios": "^1.7.2",
+    "dayjs": "^1.11.12",
     "react": "^18.3.1",
     "react-dom": "^18.3.1",
     "react-scripts": "5.0.1",
+    "vivaha-vedika-react": "file:",
     "web-vitals": "^2.1.4"
   },
   "scripts": {

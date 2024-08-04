@@ -1,9 +1,10 @@
-import { Form, Modal, Row, Col, Select, notification, Button } from "antd"
+import { Form, Modal, Row, Col, Select, notification, Button, DatePicker } from "antd"
 import axios from 'axios';
 import FloatInput from "../utils/FloatInput"
 import FloatSelect from "../utils/FloatSelect";
 import { CREATE_PROFILE } from "../utils/constants";
 import { useEffect } from "react";
+import dayjs from "dayjs";
 
 const CreateProfileModal = ({
     profileModal,
@@ -14,11 +15,12 @@ const CreateProfileModal = ({
 }) => {
     const [profileForm] = Form.useForm();
     useEffect(() => {
-      console.log("first")
       if (editProfileRecord?.id) {
+        const datePickerFormat = dayjs(editProfileRecord?.dob, "DD-MM-YYYY");
         profileForm.setFieldsValue({
           codeNo: editProfileRecord?.codeNo,
-          dob: editProfileRecord?.dob,
+          // dob: editProfileRecord?.dob,
+          dob: datePickerFormat,
           birthYear: editProfileRecord?.birthYear,
           firstName: editProfileRecord?.firstName,
           gender: editProfileRecord?.gender,
@@ -45,6 +47,8 @@ const CreateProfileModal = ({
 
     const createOrEditProfile = async (values) => {
       try {
+        const formatted = dayjs(values?.dob).format("DD-MM-YYYY");
+        const birthYear = dayjs(values?.dob).format("YYYY");
         let payload = {...values};
         if (values?.imageUrl) {
           const imageIdRegex = /\/d\/([^/]+)/;
@@ -53,7 +57,9 @@ const CreateProfileModal = ({
         }
         if (editProfileRecord?.id) {
           payload = {
-            ...payload, 
+            ...payload,
+            dob: formatted,
+            birthYear,
             id: editProfileRecord?.id,
           };
         }
@@ -120,26 +126,26 @@ const CreateProfileModal = ({
             </Col>
             <Col className="gutter-row" span={12}>
               <Form.Item
-                name="firstName"
+                name="lastName"
               >
                 <FloatInput
                   type="text"
-                  label="First Name"
-                  required
+                  label="Surname"
                 />
               </Form.Item>
             </Col>
             <Col className="gutter-row" span={12}>
               <Form.Item
-                name="lastName"
+                name="firstName"
               >
                 <FloatInput
                   type="text"
-                  label="Last Name"
+                  label="Name"
+                  required
                 />
               </Form.Item>
             </Col>
-            <Col className="gutter-row" span={12}>
+            {/* <Col className="gutter-row" span={12}>
               <Form.Item
                 name="birthYear"
                 rules={[
@@ -151,15 +157,16 @@ const CreateProfileModal = ({
                   label="Birth Year"
                 />
               </Form.Item>
-            </Col>
+            </Col> */}
             <Col className="gutter-row" span={12}>
               <Form.Item
                 name="dob"
               >
-                <FloatInput
+                <DatePicker />
+                {/* <FloatInput
                   type="text"
                   label="Date of Birth"
-                />
+                /> */}
               </Form.Item>
             </Col>
             <Col className="gutter-row" span={12}>
@@ -230,10 +237,53 @@ const CreateProfileModal = ({
               <Form.Item
                 name="star"
               >
-                <FloatInput
+                <FloatSelect
                   type="text"
                   label="Star"
-                />
+                >
+                    <option value="">Choose...</option>
+                    <option value="Don't Know">Don't Know</option>
+                    <option value="Mesham-Aswini">Mesham-Aswini</option>
+                    <option value="Mesham-Bharani">Mesham-Bharani</option>
+                    <option value="Mehsam-Kruthika-1">Mehsam-Kruthika-1</option>
+                    <option value="Vrushabam-Kruthika-2,3,4">Vrushabam-Kruthika-2,3,4</option>
+                    <option value="Vrushabam-Rohini">Vrushabam-Rohini</option>
+                    <option value="Vrushabam-Mrugasira-1,2">Vrushabam-Mrugasira-1,2</option>
+                    <option value="Midhunam-Mrugasira-3,4">Midhunam-Mrugasira-3,4</option>
+                    <option value="Midhunam-Arudra">Midhunam-Arudra</option>
+                    <option value="Midhuanam-Punarvasu-1,2,3">Midhuanam-Punarvasu-1,2,3</option>
+                    <option value="Karkatakam-Punarvasu-4">Karkatakam-Punarvasu-4</option>
+                    <option value="Karkatakam-Pushyami">Karkatakam-Pushyami</option>
+                    <option value="Karkatakam-Aslesa">Karkatakam-Aslesa</option>
+                    <option value="Simham-Maka">Simham-Maka</option>
+                    <option value="Simham-Pubba">Simham-Pubba</option>
+                    <option value="Simham-Uttara-1">Simham-Uttara-1</option>
+                    <option value="Kanya-Uttara-2,3,4">Kanya-Uttara-2,3,4</option>
+                    <option value="Kanya-Hasta">Kanya-Hasta</option>
+                    <option value="Kanya-Chitta-1,2">Kanya-Chitta-1,2</option>
+                    <option value="Tula-Chitta-3,4">Tula-Chitta-3,4</option>
+                    <option value="Tula-Swati">Tula-Swati</option>
+                    <option value="Tula-Visaka-1,2,3">Tula-Visaka-1,2,3</option>
+                    <option value="Vruchikam-Visaka-4">Vruchikam-Visaka-4</option>
+                    <option value="Vruchikam-Anuradha">Vruchikam-Anuradha</option>
+                    <option value="Vruchikam-Jyasta">Vruchikam-Jyasta</option>
+                    <option value="Dhanashu-Mula">Dhanashu-Mula</option>
+                    <option value="Dhanashu-Purvashada">Dhanashu-Purvashada</option>
+                    <option value="Dhanashu-Uttarashada-1">Dhanashu-Uttarashada-1</option>
+                    <option value="Makaram-Uttarashada-2,3,4">Makaram-Uttarashada-2,3,4</option>
+                    <option value="Makaram-Shravanam">Makaram-Shravanam</option>
+                    <option value="Makaram-Danista-1,2">Makaram-Danista-1,2</option>
+                    <option value="Kumbam-Dhanista-3,4">Kumbam-Dhanista-3,4</option>
+                    <option value="Kumbam-Shatabisham">Kumbam-Shatabisham</option>
+                    <option value="Kumbam-Purvabadhra-1,2,3">Kumbam-Purvabadhra-1,2,3</option>
+                    <option value="Meenam-Purvabadhra-4">Meenam-Purvabadhra-4</option>
+                    <option value="Meenam-Uttarabadhra">Meenam-Uttarabadhra</option>
+                    <option value="Meenam-Revathi">Meenam-Revathi</option>
+                </FloatSelect>
+                {/* <FloatInput
+                  type="text"
+                  label="Star"
+                /> */}
               </Form.Item>
             </Col>
             {/* <Col className="gutter-row" span={12}>

@@ -1,0 +1,17 @@
+.ant-table-wrapper .ant-table-thead > tr > th {
+  color: rgb(251, 251, 251);
+  text-align: center;
+  background: rgb(51, 105, 231) !important;
+}
+.ant-table-row:nth-child(odd) {
+  background-color: #e7f4bf !important;
+}
+
+.ant-table-row:nth-child(even) {
+  background-color: #c6eef5 !important;
+}
+:where(.css-dev-only-do-not-override-1uq9j6g).ant-table-wrapper .ant-table-cell-fix-left, :where(.css-dev-only-do-not-override-1uq9j6g).ant-table-wrapper .ant-table-cell-fix-right {
+  position: sticky !important;
+  z-index: 2;
+  background: inherit;
+}
