@@ -10,8 +10,41 @@
 .ant-table-row:nth-child(even) {
   background-color: #c6eef5 !important;
 }
-:where(.css-dev-only-do-not-override-1uq9j6g).ant-table-wrapper .ant-table-cell-fix-left, :where(.css-dev-only-do-not-override-1uq9j6g).ant-table-wrapper .ant-table-cell-fix-right {
+:where(.css-dev-only-do-not-override-1uq9j6g).ant-table-wrapper
+  .ant-table-cell-fix-left,
+:where(.css-dev-only-do-not-override-1uq9j6g).ant-table-wrapper
+  .ant-table-cell-fix-right {
   position: sticky !important;
   z-index: 2;
   background: inherit;
+}
+.ant-modal-close {
+  display: none;
+}
+.header {
+  position: sticky;
+  top: 0;
+  background-color: #f1f1f1;
+  padding-left: 10px;
+  padding-right: 10px;
+  border: 1px solid #ddd;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.detailed-profiles {
+  margin: 20px;
+}
+.detailed-profile {
+  border-bottom: 2px solid grey;
+  margin: 10px;
+  padding-bottom: 20px;
+}
+.profile-details-container {
+  flex-grow: 1;
+  h4, p {
+    margin: 5px;
+  }
+
 }

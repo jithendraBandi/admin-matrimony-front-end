@@ -1,13 +1,15 @@
 import { useState, useEffect } from "react";
 import axios from "axios";
-import { Button, Input, Modal, Popover, Select, Table } from "antd";
+import { Button, Input, Modal, Popover, Radio, Select, Table } from "antd";
 import { DELETE_PROFILE, DELETE_PROFILE_ENDPOINT, GET_ALL_PROFILES, GET_PROFILE_IMAGE } from "../utils/constants";
 import CreateProfileModal from "./CreateProfileModal";
 
 import { Space } from "antd";
-import { EditOutlined, PlusOutlined, DeleteOutlined } from "@ant-design/icons";
+import { EditOutlined, PlusOutlined, DeleteOutlined, FilterFilled } from "@ant-design/icons";
 import ProfileDetailsModal from "./ProfileDetailsModal";
 import "./components.css";
+import ProfilesDisplay from "./ProfilesDisplay";
+import FilterModal from "./FilterModal";
 
 const Profile = () => {
   const [profileData, setProfileData] = useState([]);
@@ -17,6 +19,9 @@ const Profile = () => {
   const [profileDetails, setProfileDetails] = useState(null);
   const [profileDetailsModal, setProfileDetailsModal] = useState(false);
   const [searchParameter, setSearchParameter] = useState("lastName");
+  const [viewType, setViewType] = useState("profileView");
+  const [filterModal, setFilterModal] = useState(false);
+  const [filterValues, setFilterValues] = useState({});
   useEffect(() => {
     getProfileData();
   }, []);
@@ -28,7 +33,6 @@ const Profile = () => {
   };
 
   const getImagePreview = (codeNo) => {
-    console.log("GET_PROFILE_IMAGE+codeNo", GET_PROFILE_IMAGE + codeNo);
     return (
       <img
         src={GET_PROFILE_IMAGE + codeNo}
@@ -213,18 +217,66 @@ const Profile = () => {
   };
   const handleSearch = (event) => {
     setSearchInput(event.target.value);
-    // setFilteredData(filteredData);
   };
   const filteredData = () => {
-    return profileData.filter((profile) =>
+    let filteredData;
+
+    // search filter
+    filteredData = profileData.filter((profile) =>
       profile[searchParameter]
         ?.toLowerCase()
         .includes(searchInput?.toLowerCase())
     );
+
+    // custom filter
+    if (Object.values(filterValues)?.some(value => value !== undefined)) {
+      if (filterValues?.gender) {
+        filteredData = filteredData?.filter(profile => {
+          return profile?.gender === filterValues?.gender
+        })
+      }
+      if (filterValues?.sorting) {
+        if (filterValues?.sorting === "salaryAsc") {
+          filteredData = filteredData?.sort((a,b) => a?.salary - (b?.salary));
+        }
+        else if (filterValues?.sorting === "salaryDesc") {
+          filteredData = filteredData?.sort((a,b) => b?.salary - (a?.salary));
+        }
+        else if (filterValues?.sorting === "birthYearDesc") {
+          filteredData = filteredData?.sort((a,b) => b?.birthYear - (a?.birthYear));
+        }
+        else if (filterValues?.sorting === "birthYearAsc") {
+          filteredData = filteredData?.sort((a,b) => a?.birthYear - (b?.birthYear));
+        }
+      }
+    }
+    return filteredData;
   };
+  useEffect(() => {
+    filteredData();
+  }, [filterValues]);
+
+  const handleViewType = (event) => {
+    setViewType(event.target.value)
+  }
+  const handleFilter = () => {
+    setFilterModal(true);
+  }
+  const handleFilterValues = values => setFilterValues(values);
+  const filterStyling = () => {
+    if (Object.values(filterValues)?.some(value => value !== undefined)) {
+      return {
+        color: "green",
+      };
+    }
+    return {
+      color: "red",
+    };
+  }
   return (
     <>
-      <h3 style={{ textAlign: "center" }}>Vivaha Vedika</h3>
+      <div className="header">
+      <h3 style={{color:"green"}}>Vivaha Vedika</h3>
       <div>
         <Input
           allowClear
@@ -241,6 +293,7 @@ const Profile = () => {
         >
           <Select.Option value="lastName">Surname</Select.Option>
           <Select.Option value="firstName">Name</Select.Option>
+          <Select.Option value="codeNo">Code No.</Select.Option>
           <Select.Option value="mobileNumber">Mobile Number</Select.Option>
           <Select.Option value="birthYear">Birth Year</Select.Option>
           <Select.Option value="qualification">Qualification</Select.Option>
@@ -250,18 +303,24 @@ const Profile = () => {
           <Select.Option value="nativeAddress">Native Address</Select.Option>
           <Select.Option value="star">Star</Select.Option>
         </Select>
+        </div>
+          <FilterFilled style={filterStyling()} onClick={handleFilter} />
+        <Radio.Group onChange={handleViewType} value={viewType}>
+        <Radio.Button value="profileView">Profile View</Radio.Button>
+        <Radio.Button value="tableView">Table View</Radio.Button>
+      </Radio.Group>
         <Button type="primary" onClick={() => setProfileModal(true)}>
           <PlusOutlined />
         </Button>
       </div>
-      <Table
+      {viewType === "tableView" && <Table
         dataSource={filteredData()}
         columns={profileColumns}
-        // style={{margin: "10px"}}
         scroll={{ x: 2000 }}
         pagination={false}
         sticky
-      />
+      /> }
+      {viewType === "profileView" && <ProfilesDisplay deleteProfile={deleteProfile} editProfileModal={editProfileModal} profiles={filteredData()} />}
       <CreateProfileModal
         profileModal={profileModal}
         setProfileModal={setProfileModal}
@@ -274,6 +333,11 @@ const Profile = () => {
         profileDetails={profileDetails}
         setProfileDetails={setProfileDetails}
         setProfileDetailsModal={setProfileDetailsModal}
+      />
+      <FilterModal 
+      filterModal={filterModal} 
+      setFilterModal={setFilterModal} 
+      handleFilterValues={handleFilterValues}
       />
     </>
   );
