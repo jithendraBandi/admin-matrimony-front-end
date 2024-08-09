@@ -38,6 +38,7 @@ const DetailedProfile = ({
         <p>Date of Birth : {profileDetails?.dob}</p>
         <p>Star: {profileDetails?.star}</p>
         <p>Qualification : {profileDetails?.qualification}</p>
+        <p>Caste : {profileDetails?.caste}</p>
         <p>Job : {profileDetails?.job}</p>
         <p>Salary : {profileDetails?.salary}</p>
         <p>Job Address : {profileDetails?.jobAddress}</p>

@@ -119,6 +119,11 @@ const Profile = () => {
       key: "dob",
     },
     {
+      title: "Caste",
+      dataIndex: "caste",
+      key: "caste",
+    },
+    {
       title: "Qualification",
       dataIndex: "qualification",
       key: "qualification",

@@ -31,6 +31,7 @@ const CreateProfileModal = ({
         codeNo: editProfileRecord?.codeNo,
         // dob: editProfileRecord?.dob,
         dob: datePickerFormat,
+        caste: editProfileRecord?.caste,
         birthYear: editProfileRecord?.birthYear,
         firstName: editProfileRecord?.firstName,
         gender: editProfileRecord?.gender,
@@ -119,7 +120,7 @@ const CreateProfileModal = ({
         <Row gutter={{ xs: 8, sm: 16, md: 24, lg: 32 }}>
           <Col className="gutter-row" span={12}>
             <Form.Item name="codeNo">
-              <FloatInput type="number" label="Code No." />
+              <FloatInput type="text" label="Code No." />
             </Form.Item>
           </Col>
           <Col className="gutter-row" span={12}>
@@ -172,6 +173,11 @@ const CreateProfileModal = ({
           <Col className="gutter-row" span={12}>
             <Form.Item name="qualification">
               <FloatInput type="text" label="Qualification" />
+            </Form.Item>
+          </Col>
+          <Col className="gutter-row" span={12}>
+            <Form.Item name="caste">
+              <FloatInput type="text" label="Caste" />
             </Form.Item>
           </Col>
           <Col className="gutter-row" span={12}>
