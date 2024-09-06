@@ -302,6 +302,7 @@ const Profile = () => {
           <Select.Option value="mobileNumber">Mobile Number</Select.Option>
           <Select.Option value="birthYear">Birth Year</Select.Option>
           <Select.Option value="qualification">Qualification</Select.Option>
+          <Select.Option value="caste">Caste</Select.Option>
           <Select.Option value="dob">DOB</Select.Option>
           <Select.Option value="job">Job</Select.Option>
           <Select.Option value="jobAddress">Job Address</Select.Option>
