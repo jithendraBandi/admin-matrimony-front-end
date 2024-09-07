@@ -1,5 +1,5 @@
 import { useState } from "react";
-import {EyeOutlined, EyeInvisibleOutlined, EditOutlined, DeleteOutlined} from '@ant-design/icons';
+import {EyeOutlined, EyeInvisibleOutlined, EditOutlined, DeleteOutlined, MobileOutlined, PhoneOutlined} from '@ant-design/icons';
 import { GET_PROFILE_IMAGE } from "../utils/constants";
 import { Space } from "antd";
 
@@ -40,12 +40,13 @@ const DetailedProfile = ({
         <p>Qualification : {profileDetails?.qualification}</p>
         <p>Caste : {profileDetails?.caste}</p>
         <p>Job : {profileDetails?.job}</p>
+        <p>Height : {profileDetails?.height}</p>
         <p>Salary : {profileDetails?.salary}</p>
         <p>Job Address : {profileDetails?.jobAddress}</p>
         <p>Native Address : {profileDetails?.nativeAddress}</p>
-        <p>
-          Mobile Number :{" "}
-          {`${showMobileNumber ? profileDetails?.mobileNumber : "**********"}`}
+        <pre style={{fontSize: "15px",margin:"0px"}}>
+        <PhoneOutlined /> :{" "}
+          {`${showMobileNumber ? `${profileDetails?.mobileNumber}${"    "}${profileDetails?.alternateMobileNumber ? profileDetails?.alternateMobileNumber : ""}` : "**********"}`}
           {showMobileNumber ? (
             <EyeOutlined
               onClick={() => setShowMobileNumber(!showMobileNumber)}
@@ -57,7 +58,7 @@ const DetailedProfile = ({
               onClick={() => setShowMobileNumber(!showMobileNumber)}
             />
           )}
-        </p>
+        </pre>
         <p>Property : {profileDetails?.property}</p>
         <p>Requirement : {profileDetails?.requirement}</p>
       </div>

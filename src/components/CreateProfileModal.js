@@ -15,6 +15,7 @@ import { CREATE_PROFILE } from "../utils/constants";
 import { useEffect } from "react";
 import dayjs from "dayjs";
 import FormButtons from "../utils/FormButtons";
+import { MobileOutlined } from "@ant-design/icons";
 
 const CreateProfileModal = ({
   profileModal,
@@ -29,8 +30,9 @@ const CreateProfileModal = ({
       const datePickerFormat = dayjs(editProfileRecord?.dob, "DD-MM-YYYY");
       profileForm.setFieldsValue({
         codeNo: editProfileRecord?.codeNo,
-        // dob: editProfileRecord?.dob,
+        alternateMobileNumber: editProfileRecord?.alternateMobileNumber,
         dob: datePickerFormat,
+        height: editProfileRecord?.height,
         caste: editProfileRecord?.caste,
         birthYear: editProfileRecord?.birthYear,
         firstName: editProfileRecord?.firstName,
@@ -205,6 +207,11 @@ const CreateProfileModal = ({
             </Form.Item>
           </Col>
           <Col className="gutter-row" span={12}>
+            <Form.Item name="height">
+              <FloatInput type="text" label="Height" />
+            </Form.Item>
+          </Col>
+          <Col className="gutter-row" span={12}>
             <Form.Item
               name="mobileNumber"
               rules={[{ len: 10, message: "10 digits only" }]}
@@ -212,6 +219,15 @@ const CreateProfileModal = ({
               <FloatInput type="number" label="Mobile Number" />
             </Form.Item>
           </Col>
+          <Col className="gutter-row" span={12}>
+            <Form.Item
+              name="alternateMobileNumber"
+              rules={[{ len: 10, message: "10 digits only" }]}
+            >
+              <FloatInput type="number" label={<MobileOutlined />} />
+            </Form.Item>
+          </Col>
+
           <Col className="gutter-row" span={12}>
             <Form.Item name="star">
               <FloatSelect type="text" label="Star">
@@ -300,7 +316,7 @@ const CreateProfileModal = ({
             </Form.Item>
           </Col>
         </Row>
-        <FormButtons 
+        <FormButtons
           saveText="Submit"
           cancelText="Cancel"
           handleCancel={handleCancel}

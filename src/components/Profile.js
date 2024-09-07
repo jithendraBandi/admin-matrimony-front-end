@@ -18,7 +18,7 @@ const Profile = () => {
   const [searchInput, setSearchInput] = useState("");
   const [profileDetails, setProfileDetails] = useState(null);
   const [profileDetailsModal, setProfileDetailsModal] = useState(false);
-  const [searchParameter, setSearchParameter] = useState("lastName");
+  const [searchParameter, setSearchParameter] = useState("codeNo");
   const [viewType, setViewType] = useState("profileView");
   const [filterModal, setFilterModal] = useState(false);
   const [filterValues, setFilterValues] = useState({});
@@ -296,9 +296,9 @@ const Profile = () => {
           onChange={(value) => setSearchParameter(value)}
           style={{ width: 200, marginRight: 30 }}
         >
+          <Select.Option value="codeNo">Code No.</Select.Option>
           <Select.Option value="lastName">Surname</Select.Option>
           <Select.Option value="firstName">Name</Select.Option>
-          <Select.Option value="codeNo">Code No.</Select.Option>
           <Select.Option value="mobileNumber">Mobile Number</Select.Option>
           <Select.Option value="birthYear">Birth Year</Select.Option>
           <Select.Option value="qualification">Qualification</Select.Option>
